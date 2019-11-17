@@ -1,0 +1,1 @@
+Kova ve top arasında çeşitli ilişkileri gerçekleştiren veri yapıları ödev örneği.
