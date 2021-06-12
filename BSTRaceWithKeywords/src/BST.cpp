@@ -1,151 +1,147 @@
 ﻿#include "../include/BST.hpp"
 
-BST::BST() {
+BST::BST()
+{
 	this->root = NULL;
-} //BST yapici metod.
+}
 
-Node* BST::getRoot() {
+Node *BST::getRoot()
+{
 	return this->root;
-} //Root'u alan metod.
+}
 
-void BST::findAndAdd(Node*& subNode, int data) { //Bulup ekleme yapan metod.
-
-
-	if (subNode == nullptr) {
+void BST::findAndAdd(Node *&subNode, int data)
+{
+	if (subNode == nullptr)
+	{
 		subNode = new Node(data);
 	}
-
-
-	else if (data <= subNode->data) {
+	else if (data <= subNode->data)
+	{
 		subNode->childCount++;
 		return findAndAdd(subNode->left, data);
 	}
-		
-	else if (data > subNode->data) {
+	else if (data > subNode->data)
+	{
 		subNode->childCount++;
 		return findAndAdd(subNode->right, data);
 	}
 }
 
-int BST::MaxValue() //En buyugu bulan metod.
+int BST::MaxValue()
 {
-	Node* current = root;
+	Node *current = root;
 	while (current->right != nullptr)
 		current = current->right;
-
 	return (current->data);
-} 
+}
 
-bool BST::findAndDelete(Node*& subNode, int eleman) { //Bulup silme yapan metod.
-
-
-	if (subNode == NULL) 
+bool BST::findAndDelete(Node *&subNode, int eleman)
+{
+	if (subNode == NULL)
 		return false;
-
-	if (subNode->data == eleman) {
+	if (subNode->data == eleman)
+	{
 		subNode->childCount--;
-
 		return removeNode(subNode);
 	}
-		
-	else if (eleman < subNode->data) {
+	else if (eleman < subNode->data)
+	{
 		subNode->childCount--;
 		return findAndDelete(subNode->left, eleman);
 	}
-		
-	else {
+	else
+	{
 		subNode->childCount--;
 		return findAndDelete(subNode->right, eleman);
 	}
 }
 
-int BST::getTotalChild() { //Toplam cocugu donen metod.
+int BST::getTotalChild()
+{
 	return totalChild;
 }
 
-void BST::clearTotalChild() { //Agac degisikliginde temizleme yapan metod.
+void BST::clearTotalChild()
+{
 	totalChild = 0;
-} 
+}
 
-
-
-void BST::postOrder(Node* subNode) { //postorder cikti icin metod.
-	if (subNode != nullptr) {
+void BST::postOrder(Node *subNode)
+{
+	if (subNode != nullptr)
+	{
 		postOrder(subNode->left);
 		postOrder(subNode->right);
 		totalChild += subNode->childCount;
 		cout << "<" << subNode->data << "," << subNode->childCount << "> ";
 	}
-} 
+}
 
-
-
-
-
-void BST::Add(int data) {  //ekleme islemini yapan public metod
+void BST::Add(int data)
+{
 	findAndAdd(this->root, data);
 }
 
-void BST::PostOrder() { //Postorder bastirma islemini yapan metod.
+void BST::PostOrder()
+{
 	postOrder(root);
 }
 
-
-void BST::DeleteT(int deger) { //Degeri silen public metod.
+void BST::DeleteT(int deger)
+{
 	findAndDelete(root, deger);
 }
 
-bool BST::removeNode(Node*& subNode) { //Dugum silme islemini gerceklestiriyor
-
-	Node* removingNode = subNode;
-
-	if (subNode->right == NULL) {
+bool BST::removeNode(Node *&subNode)
+{
+	Node *removingNode = subNode;
+	if (subNode->right == NULL)
+	{
 		subNode->childCount--;
 		subNode = subNode->left;
 	}
-		
-
-	else if (subNode->left == NULL) {
+	else if (subNode->left == NULL)
+	{
 		subNode->childCount--;
 		subNode = subNode->right;
 	}
-		
-
-	else { // iki cocuklu dugum siliniyor
+	else
+	{
 		removingNode = subNode->left;
-		Node* parentNode = subNode;
-		while (removingNode->right != NULL) {
+		Node *parentNode = subNode;
+		while (removingNode->right != NULL)
+		{
 			parentNode = removingNode;
 			parentNode->childCount--;
 			removingNode = removingNode->right;
 		}
 		subNode->data = removingNode->data;
-		if (parentNode == subNode) {
+		if (parentNode == subNode)
+		{
 			subNode->left = removingNode->left;
-
 		}
-		else {
+		else
+		{
 			parentNode->right = removingNode->left;
 		}
 	}
-
-
 	delete removingNode;
-	
-
 	return true;
-} //Dugum silen metod.
+}
 
-
-bool BST::isNull() { //Null olup olmadigini kontrol eden metod.
+bool BST::isNull()
+{
 	return this->root == NULL;
 }
 
-void BST::clear() { //BST'yi temizleyen metod.
-	while (!isNull()) removeNode(root);
-} 
-
-BST::~BST() { //Yikici metod
-	clear();
+void BST::clear()
+{
+	while (!isNull())
+		removeNode(root);
 }
 
+BST::~BST()
+{
+	clear();
+}

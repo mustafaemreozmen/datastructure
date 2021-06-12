@@ -1,32 +1,26 @@
-﻿/**
-* @file test.cpp
-* @description Top sınıfını kod içeriği.
-* @author Mustafa Emre Ozmen - mustafa.eozmen@gmail.com
-*/
-
-#include "Bucket.hpp"
+﻿#include "Bucket.hpp"
 #include <iostream>
 
-Bucket::Bucket() { //Kova kurucu metodu.
+Bucket::Bucket() { 
 	setColor();
 }
 
-void Bucket::setColor() { //Renk set etme metodu. windows.h içindeki 1 ve 14 arası tüm renklere random erişim için hazırlanmıştır.
+void Bucket::setColor() {
 	color = 1 + (rand() % 14);
 }
 
-int Bucket::getColor() { //Rengi get etme metodu.
+int Bucket::getColor() { 
 	return color;
 }
 
-void Bucket::setBall(Ball* ball) { //Top objesini set etme metodu.
+void Bucket::setBall(Ball* ball) { 
 	this->ball = ball;
 }
 
-Ball* Bucket::getBall() { //Top objesini get etme metodu.
+Ball* Bucket::getBall() { 
 	return this->ball;
 }
 
-Bucket::~Bucket() { //Bucket yok edici metodu.
+Bucket::~Bucket() { 
 	delete ball;
 }

@@ -1,10 +1,3 @@
-/**
-* @file ReadingOperations.hpp
-* @description Double Linked List example.
-* @author Mustafa Emre Ozmen - mustafa.eozmen@gmail.com
-*/
-
-
 #ifndef READINGOPERATIONS_HPP
 #define READINGOPERATIONS_HPP
 
@@ -16,7 +9,6 @@
 
 using namespace std;
 
-// Okuma işlemlerinin yapıldığı sınıfın tanımı
 class ReadingOperations {
 private:
 	DoubleLinkedList* tmpList;

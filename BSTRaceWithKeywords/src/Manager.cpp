@@ -1,14 +1,12 @@
 #include "../include/Manager.hpp"
 
-
-void Manager::stringParse(string line, BST*& team)
+void Manager::stringParse(string line, BST *&team)
 {
 	string word = "";
 	for (auto x : line)
 	{
 		if (x == ' ')
 		{
-			//cout << kelime;
 			team->Add(stoi(word));
 			word = "";
 		}
@@ -19,12 +17,10 @@ void Manager::stringParse(string line, BST*& team)
 	}
 }
 
-void Manager::readFile(string path, BST*& team) {
+void Manager::readFile(string path, BST *&team)
+{
 	string line = "";
-
-
 	ifstream readAFile(path);
-
 	if (readAFile.is_open())
 	{
 		while (getline(readAFile, line))
@@ -33,30 +29,24 @@ void Manager::readFile(string path, BST*& team) {
 		}
 		readAFile.close();
 	}
-	else {
-		cout << "Dosya yok.";
+	else
+	{
+		cout << "File not found.";
 	}
 }
 
-void Manager::changeNodes(BST*& p1, BST*& p2) {
-
-
-	if (p1->getTotalChild() > p2->getTotalChild()) { //benim kaybetme durumu
+void Manager::changeNodes(BST *&p1, BST *&p2)
+{
+	if (p1->getTotalChild() > p2->getTotalChild())
+	{
 		int p1Max = p1->MaxValue();
 		int p2Root = p2->getRoot()->data;
-
-
 		p2->Add(p1Max);
 		p1->DeleteT(p1->MaxValue());
-
 		p1->Add(p2Root);
 		p2->DeleteT(p2->getRoot()->data);
-
-
-
 	}
-
-	if (p1->getTotalChild() < p2->getTotalChild()) //rakip kaybetme durumu
+	if (p1->getTotalChild() < p2->getTotalChild())
 	{
 		int p2Max = p2->MaxValue();
 		int p1Root = p1->getRoot()->data;
@@ -66,32 +56,16 @@ void Manager::changeNodes(BST*& p1, BST*& p2) {
 
 		p2->Add(p1Root);
 		p1->DeleteT(p1Root);
-
-
 	}
-	if (p1->getTotalChild() == p2->getTotalChild()) { //berabere gelmesi
-
+	if (p1->getTotalChild() == p2->getTotalChild())
+	{
 		int p2Root = p2->getRoot()->data;
 		int p1Root = p1->getRoot()->data;
-
 		p2->Add(p1Root);
-
 		p1->Add(p2Root);
-
 		p2->DeleteT(p2Root);
-
 		p1->DeleteT(p1Root);
-
 	}
-
-
-
 	p1->clearTotalChild();
 	p2->clearTotalChild();
-
-
-
-
 }
-
-
